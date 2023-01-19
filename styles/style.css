@@ -14,7 +14,7 @@ html {
 body {
   font-size: 1.6rem;
   font-family:  'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--gray-font);
+  color: var(---dark-gray);
 }
 
 /* Header */
@@ -86,7 +86,6 @@ main {
   margin-bottom: 3rem;
   text-align: center;
 
-  color: var(---dark-gray);
   background-color: var(--pastel-light-blue);
 }
 
@@ -143,13 +142,12 @@ main {
 }
 
 .price{
-    color: var(---dark-gray);
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 3rem;
 }
 
 .price strong {
-    font-weight: 500;
+    font-weight: 600;
 }
 
 /* pagination */
@@ -169,14 +167,43 @@ main {
 
 .detials {
   display: flex;
+  flex-direction: column;
 
-  justify-content: center;
+  align-items: center;
+}
+
+.details-text {
+  margin-bottom: 3rem;
 }
 
 .main-image {
   width: 90%;
   border-radius: 5px;
 }
+
+.details-title {
+  font-size: 3rem;
+}
+
+.details-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.details-buttons button{
+  border: 2px solid var(---dark-gray);
+  border-radius: 15px;
+  padding: 1rem 3rem;
+}
+
+.details-buttons button:hover {
+  background-color: var(---dark-gray);
+  color: #fff;
+}
+.details-buttons button:active {
+  background-color: var(---gray);
+}
+
 
 /* Footer */
 
