@@ -25,7 +25,6 @@
       <nav class="header__nav">
         <button class="nav__button"><i class="fa-solid fa-bars"></i></button>
         <ul>
-            <li><a href="">Categories</a></li>
           <!-- USER -->
           <li><a href="">Profile</a></li>
           <li><a href="">Logout</a></li>
@@ -36,8 +35,13 @@
       </nav>
       <form>
         <div>
-          <input class="search-box" type="text" maxlength="30" />
-          <button class="search-box__button">
+          <input
+            class="search-box"
+            type="text"
+            maxlength="30"
+            placeholder="Search for anything"
+          />
+          <button type="submit" class="search-box__button">
             <i class="fa-solid fa-magnifying-glass"></i>
           </button>
         </div>
@@ -45,45 +49,34 @@
     </header>
 
     <main>
-        <h2 class="main-title">Categories</h2>
-      <ul class="categories-list">
-        <li class="category">
-          <a href="/clothings"
-            ><img src="/static/images/clothings.jpg" alt="" />
-            <p>Clothing</p></a
-          >
-        </li>
-        <li class="category">
-          <a href="/electronics"
-            ><img src="/static/images/electronics.jpg" alt="" />
-            <p>Electronics</p></a
-          >
-        </li>
-        <li class="category">
-          <a href=""
-            ><img src="/static/images/electronics.jpg" alt="" />
-            <p>Cat1</p></a
-          >
-        </li>
-        <li class="category">
-          <a href=""
-            ><img src="/static/images/electronics.jpg" alt="" />
-            <p>Cat1</p></a
-          >
-        </li>
-        <li class="category">
-          <a href=""
-            ><img src="/static/images/electronics.jpg" alt="" />
-            <p>Cat1</p></a
-          >
-        </li>
-        <li class="category">
-          <a href=""
-            ><img src="/static/images/electronics.jpg" alt="" />
-            <p>Cat1</p></a
-          >
-        </li>
-      </ul>
+      <h2 class="main-title">Login</h2>
+
+      <form class="user-form" method="POST">
+        <article class="input-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="john@abv.bg"
+          />
+        </article>
+        <article class="input-group">
+          <label for="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="********"
+          />
+        </article>
+        <article class="input-group">
+          <p class="message-field"></p>
+      </article>
+        <article class="input-group">
+          <input class="action-button" type="submit" value="Login">
+      </article>
+      </form>
     </main>
 
     <footer>
