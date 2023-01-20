@@ -1,0 +1,29 @@
+{
+  "name": "emarket-web-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stsp93/emarket-web-app.git"
+  },
+  "keywords": [
+    "js",
+    "javascript",
+    "spa"
+  ],
+  "author": "Steliyan Petkov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stsp93/emarket-web-app/issues"
+  },
+  "homepage": "https://github.com/stsp93/emarket-web-app#readme",
+  "description": "",
+  "dependencies": {
+    "lit-html": "^2.6.1",
+    "page": "^1.11.6"
+  }
+}
