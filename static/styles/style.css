@@ -54,17 +54,24 @@ header {
   object-fit: cover;
 }
 
-.header__nav ul li {
+.nav__li {
   font-size: 2rem;
 
-  /* visible */
   height: 3rem;
-  display: block;
-
-  /* hidden */
-  height: 0;
-  display: none;
+  transition: height 0.3s;
 }
+.nav__hidden{
+  opacity: 0;
+  height: 0;
+}
+
+.nav__hidden a{
+  overflow: hidden;
+  display: block;
+  height: 0;
+}
+
+
 
 .nav__button {
   background: var(--blue-gradient270deg);
