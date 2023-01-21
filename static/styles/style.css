@@ -48,27 +48,27 @@ header {
 }
 
 .logo img {
-  width: 100%;
-  height: 18rem;
-
   object-fit: cover;
 }
 
 .nav__li {
   font-size: 2rem;
 
-  height: 3rem;
-  transition: height 0.3s;
-}
-.nav__hidden{
-  opacity: 0;
-  height: 0;
-}
 
-.nav__hidden a{
+  transition: height 0.3s;
+
+  height: 0;
+  opacity: 0;
   overflow: hidden;
   display: block;
-  height: 0;
+}
+.nav__active{
+  height: 3rem;
+  opacity: 100%;
+}
+
+.nav__active a{
+  height: 3rem;
 }
 
 
@@ -321,14 +321,6 @@ footer {
 
 
 @media screen and (min-width: 860px) {
-
-    /* logo */
-    .logo img{
-      width: 80%;
-      height: 40rem;
-      margin: 0 auto;
-    }
-
   /* navigation */
   .nav__button{
     display: none;
@@ -361,48 +353,14 @@ footer {
   .offer-card {
     max-width: 40rem;
   }
+
+  .nav__li{
+    height: 3rem;
+    opacity: 100%;
+  }
 }
 
 @media screen and (min-width: 1100px) {
-/* root */
-  :root {
-    --dark-gray: #222;
-    --gray: #444;
-    --blue-gradient90deg: linear-gradient(
-      90deg,
-      rgb(143, 139, 253) 0%,
-      rgba(162, 225, 252, 0.639) 80%
-    );
-    --blue-gradient270deg: linear-gradient(
-      270deg,
-      rgb(113, 109, 248) 0%,
-      rgba(106, 210, 255, 0.5) 80%
-    );
-  }
-
-
-  /* logo */
-  .logo img{
-    width: 100%;
-    height: 100vh;
-    margin: 0 auto;
-
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -10;
-
-    opacity: 20%;
-    filter: blur(10px);
-  }
-
-  .logo::before {
-    content: 'E-Market';
-    font-size: 4rem;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: var(--gray);
-  }
-
 
   /* homepage categories */
   .categories-list {

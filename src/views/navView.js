@@ -26,5 +26,5 @@ export function showNav(ctx, next) {
 }
 
 function onNavClick() {
-    document.querySelectorAll('.nav__li').forEach(el => el.classList.toggle('nav__hidden'));
+    document.querySelectorAll('.nav__li').forEach(el => el.classList.toggle('nav__active'));
 }
