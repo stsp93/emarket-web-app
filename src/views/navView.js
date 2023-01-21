@@ -5,13 +5,13 @@ const createNav = (user) => html`<button @click=${onNavClick} class="nav__button
 <ul>
 
 
-    <li class="nav__li nav__hidden"><a href="/">Categories</a></li>
+    <li class="nav__li"><a href="/">Categories</a></li>
     <!-- USER -->
     ${user ? 
-    html`<li class="nav__li nav__hidden"><a href="/profile">Profile</a></li>
-    <li class="nav__li nav__hidden"><a href="/user/logout">Logout</a></li>`: 
-    html`<li class="nav__li nav__hidden"><a href="/user/login">Login</a></li>
-    <li class="nav__li nav__hidden"><a href="/user/register">Register</a></li>`}
+    html`<li class="nav__li"><a href="/profile">Profile</a></li>
+    <li class="nav__li"><a href="/user/logout">Logout</a></li>`: 
+    html`<li class="nav__li"><a href="/user/login">Login</a></li>
+    <li class="nav__li"><a href="/user/register">Register</a></li>`}
     <!-- GUEST -->
 
 </ul>`

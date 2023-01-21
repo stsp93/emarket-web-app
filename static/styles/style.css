@@ -137,7 +137,12 @@ main {
   border-radius: 50%;
 }
 
-/* offer card */
+/* offers */
+.offers-list li {
+  display: flex;
+  justify-content: center;
+}
+
 .offer-card {
   max-width: 50rem;
   display: flex;
@@ -179,7 +184,8 @@ main {
 
 .pagination {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 5rem;
   align-items: center;
 }
 
@@ -311,4 +317,115 @@ footer {
   border-top: 1px solid #ccc;
   padding: 1rem;
   text-align: center;
+}
+
+
+@media screen and (min-width: 860px) {
+
+    /* logo */
+    .logo img{
+      width: 80%;
+      height: 40rem;
+      margin: 0 auto;
+    }
+
+  /* navigation */
+  .nav__button{
+    display: none;
+  }
+
+  .header__nav ul {
+    font-size: 3rem;
+
+    display: flex;
+    gap: 2rem;
+    padding: 1rem;
+  }
+
+  .header__nav ul li {
+    font-weight: 600;
+  }
+  
+
+  /* homepage categories */
+  .categories-list {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+
+  /* offers page*/
+  .offers-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .offer-card {
+    max-width: 40rem;
+  }
+}
+
+@media screen and (min-width: 1100px) {
+/* root */
+  :root {
+    --dark-gray: #222;
+    --gray: #444;
+    --blue-gradient90deg: linear-gradient(
+      90deg,
+      rgb(143, 139, 253) 0%,
+      rgba(162, 225, 252, 0.639) 80%
+    );
+    --blue-gradient270deg: linear-gradient(
+      270deg,
+      rgb(113, 109, 248) 0%,
+      rgba(106, 210, 255, 0.5) 80%
+    );
+  }
+
+
+  /* logo */
+  .logo img{
+    width: 100%;
+    height: 100vh;
+    margin: 0 auto;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -10;
+
+    opacity: 20%;
+    filter: blur(10px);
+  }
+
+  .logo::before {
+    content: 'E-Market';
+    font-size: 4rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: var(--gray);
+  }
+
+
+  /* homepage categories */
+  .categories-list {
+      display: flex;
+      gap: 3rem;
+      justify-content: center;
+  }
+
+  /* offers page */
+  .offers-list {
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+  .offer-card{
+    max-width: 100%;
+    margin-bottom: 0;
+  }
+}
+
+
+@media screen and (min-width: 1300px) {
+
+  /* offers page */
+
+
 }
