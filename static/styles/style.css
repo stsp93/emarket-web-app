@@ -71,8 +71,6 @@ header {
   height: 3rem;
 }
 
-
-
 .nav__button {
   background: var(--blue-gradient270deg);
   width: 100%;
@@ -95,6 +93,71 @@ header {
 .search-box__button i {
   font-size: 2rem;
 }
+
+  /* homepage accordion */
+  .accordion {
+    display: none;
+    margin: 0 auto;
+    margin-bottom: 3rem;
+
+    position: relative;
+    height: 20rem;
+    width: 80%;
+  }
+  .accordion a::before {
+    content: "Shop Now";
+    position: absolute;
+    
+    color: var(--dark-gray);
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+
+    font-size: 3rem;
+    font-weight: 600;
+    padding: 1rem;
+    z-index: 2;
+
+  }
+
+  .accordion__img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+  }
+
+  .accordion__button {
+    position: absolute;
+
+    font-size: 4rem;
+    color: var(--pastel-yellow);
+    z-index: 10;
+
+    transition: all 0.3s;
+  }
+
+  .accordion__button:hover {
+    font-size: 6rem;
+  }
+  .accordion__link {
+    display: none;
+  } 
+
+  .accordion__link-active {
+    display: inline;
+  }
+
+
+  .accordion__next {
+    top: 100%;
+    left: 100%;
+    transform: translate(-110%, -110%);
+  }
+  .accordion__prev {
+    top: 100%;
+    left: 0;
+    transform: translate(10%, -110%);
+  }
 
 /* Main */
 
@@ -378,12 +441,13 @@ footer {
     max-width: 100%;
     margin-bottom: 0;
   }
-}
 
-
-@media screen and (min-width: 1300px) {
-
-  /* offers page */
-
+  /* homepage accordion */
+  .accordion {
+    display: block;
+  }
 
 }
+
+
+
