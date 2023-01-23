@@ -24,6 +24,6 @@ const detailsTemplate = () => html`<h2 class="main-title">&rAarr; <a href="">Clo
 
 </article>`
 
-export function showdetails(ctx, next) {
+export function showDetails(ctx, next) {
     ctx.render(detailsTemplate())
 }

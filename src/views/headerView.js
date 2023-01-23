@@ -22,6 +22,7 @@ const createHeader = (user) => html`<div class="logo">
   <form @submit=${onSearch}>
     <div>
       <input
+        name="query"
         class="search-box"
         type="text"
         maxlength="30"
@@ -34,16 +35,26 @@ const createHeader = (user) => html`<div class="logo">
   </form> `;
 
 const header = document.querySelector('header');
-
+let context;
 export function showHeader(ctx, next) {
+    context = ctx;
     const user = getUser()
     render(createHeader(user), header)
 
-    									next()
+    next()
 }
 
-function onNavClick() {
+function onNavClick(){
     document.querySelectorAll('.nav__li').forEach(el => el.classList.toggle('nav__active'));
+}
+
+function onSearch(e) {
+  e.preventDefault()
+  const form = new FormData(e.target);
+  const query = Object.fromEntries(form).query;
+  
+  context.page.redirect(`/search/${query}`);
+
 }
 
 
