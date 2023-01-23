@@ -10,6 +10,14 @@ const createHeader = (user) => html`<div class="logo">
     </button>
     <ul>
       <li class="nav__li"><a href="/">Categories</a></li>
+
+
+      <!-- FOR DEV ONLY -->
+      <li class="nav__li"><a href="/create">DEV ONLY crete</a></li>
+      <li class="nav__li"><a href="/edit/1234">DEV ONLY edit</a></li>
+
+
+
       <!-- USER -->
       ${user
         ? html`<li class="nav__li"><a href="/profile">Profile</a></li>

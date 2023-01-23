@@ -1,3 +1,4 @@
+import { getUser } from "./api/auth.js";
 import { html,render } from "./lib.js";
 
 const root = document.querySelector('main')
@@ -7,4 +8,13 @@ export function decoratorCtx(ctx,next) {
         render(section,root)
     }
     next()
+}
+
+export function isAuth(ctx,next) {
+    console.log(getUser());
+    if(getUser()) {
+        next()
+    } else {
+        ctx.page.redirect('/404')
+    }
 }
