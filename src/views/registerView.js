@@ -1,8 +1,9 @@
-import { html } from '../lib.js';
+import { register } from '../api/user.js';
+import { html, nothing } from '../lib.js';
 
-const registerTemplate = () => html`<h2 class="main-title">Register</h2>
+const registerTemplate = (err) => html`<h2 class="main-title">Register</h2>
 
-<form class="user-form" method="POST">
+<form @submit=${onRegister} class="user-form" method="POST">
   <article class="input-group">
     <label for="email">Email*</label>
     <input id="email" name="email" type="email" placeholder="john@abv.bg" />
@@ -20,13 +21,40 @@ const registerTemplate = () => html`<h2 class="main-title">Register</h2>
     <input id="repeatPassword" type="password" name="repeatPassword" placeholder="********" />
   </article>
   <article class="input-group">
-    <p class="message-field">* Mandatory fields</p>
+    ${err ? html`<p class="message-field">* ${err}</p>`: nothing}
+    
   </article>
   <article class="input-group">
     <input class="action-button" type="submit" value="Register">
   </article>
 </form>`
 
+
+let context;
 export function showRegister(ctx, next) {
+  context = ctx
   ctx.render(registerTemplate());
+}
+
+async function onRegister(e) {
+  e.preventDefault();
+
+  const form = new FormData(e.target);
+  const payload = Object.fromEntries(form);
+  const {email, username,password, repeatPassword} = payload
+  try {
+    const emptyFields = Object.entries(payload).filter(([k,v]) => v === '').map(([k,v]) => k);
+    if(emptyFields.length> 0) throw new Error(`${emptyFields.join(', ')} can\'t be empty`);
+    if(email.length < 3) throw new Error('Email should be at least 3 characters long');
+    if(username.length < 3) throw new Error('Username should be at least 3 characters long');
+    if(password.length < 3) throw new Error('Password should be at least 3 characters long');
+    if(password !== repeatPassword) throw new Error('Passwords don\'t match');
+
+    await register(email,username, password);
+
+    context.page.redirect('/user/login')
+  } catch (err) {
+    console.log(err);
+    context.render(registerTemplate(err))
+  }
 }

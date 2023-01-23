@@ -1,7 +1,7 @@
 import { login } from '../api/user.js';
-import { html } from '../lib.js'
+import { html, nothing } from '../lib.js'
 
-const loginTemplate = () => html`<h2 class="main-title">Login</h2>
+const loginTemplate = (err) => html`<h2 class="main-title">Login</h2>
 
 <form @submit=${onLogin} class="user-form" method="POST">
   <article class="input-group">
@@ -23,7 +23,8 @@ const loginTemplate = () => html`<h2 class="main-title">Login</h2>
     />
   </article>
   <article class="input-group">
-    <p class="message-field"></p>
+    ${err? html`<p class="message-field">${err}</p>`: nothing}
+    
 </article>
   <article class="input-group">
     <input class="action-button" type="submit" value="Login">
@@ -42,12 +43,11 @@ async function onLogin(e) {
 
   const form = new FormData(e.target);
   const {email,password} = Object.fromEntries(form);
-  let res;
   try {
-    res = await login(email,password)
+    await login(email,password)
     context.page.redirect('/')
   } catch(err) {
-    alert(err)
+    context.render(loginTemplate(err))
   }
 
 }

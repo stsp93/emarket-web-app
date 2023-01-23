@@ -13,9 +13,8 @@ export async function login(email, password) {
     return res;
 }
 
-export async function register(email, password) {
-    const res = await api.post(endpoints.register,{email, password});
-    saveUserSession(res)
+export async function register(email,username, password) {
+    const res = await api.post(endpoints.register,{email, username,password});
     return res;
 }
 
