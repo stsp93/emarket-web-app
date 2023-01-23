@@ -8,6 +8,7 @@ import { showCategory, showResults } from './views/resultsView.js';
 import { showDetails } from './views/detailsView.js';
 import { showEdit } from './views/editView.js';
 import { showCreate } from './views/createView.js';
+import { showNotFound } from './views/404View.js';
 
 page(decoratorCtx);
 page(showHeader);
@@ -19,5 +20,6 @@ page('/edit/:id',showEdit)
 page('/create', showCreate)
 page('/:category', showCategory)
 page('/',showHome)
+page('*', showNotFound)
 
 page.start()

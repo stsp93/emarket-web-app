@@ -382,6 +382,29 @@ footer {
   text-align: center;
 }
 
+/* 404 */
+.not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.not-found__img {
+  width: 70%;
+  margin: 0 auto;
+}
+
+.go-home {
+  font-size: 3rem;
+  padding: 1rem;
+  border: 2px solid var(--dark-gray);
+  border-radius: 40px;
+}
+
+
+
+
+/******* Responsive  ***********/
 
 @media screen and (min-width: 860px) {
   /* navigation */
