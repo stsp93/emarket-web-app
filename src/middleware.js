@@ -11,7 +11,6 @@ export function decoratorCtx(ctx,next) {
 }
 
 export function isAuth(ctx,next) {
-    console.log(getUser());
     if(getUser()) {
         next()
     } else {
