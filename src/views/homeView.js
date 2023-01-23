@@ -1,18 +1,13 @@
 import { html } from "../lib.js";
 import { accrodionAnimation, clickPrev, clickNext } from "../controllers/accordionController.js";
+import { getAllCategories } from "../api/data.js";
 
-const homeTemplate = () => html`<h2 class="main-title">Categories</h2>
-<article  class="accordion">
-  <a class="accordion__link accordion__link-active" href="/electronics">
-    <img class="accordion__img" src="/static/images/electronics.jpg" alt="" />
+const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</h2>
+<article class="accordion">
+  <a class="accordion__link accordion__link-active" href="/">
+    <img class="accordion__img" src="/static/images/open.jpg" alt="e-market" />
   </a>
-  <a class="accordion__link" href="/clothings">
-    <img class="accordion__img" src="/static/images/clothings.jpg" alt="" />
-  </a>
-  <a class="accordion__link" href="/">
-    <img class="accordion__img" src="/static/images/asd.jpg" alt="" />
-  </a>
-
+  ${allCategories.map(([category, imgUrl]) => accordionLink(category, imgUrl))}
   <button @click=${clickPrev} class="accordion__prev accordion__button">
     <i class="fa-solid fa-chevron-left"></i>
   </button>
@@ -23,43 +18,26 @@ const homeTemplate = () => html`<h2 class="main-title">Categories</h2>
 
 </article>
 <ul class="categories-list">
-  <li class="category">
-    <a href="/clothings"><img src="/static/images/clothings.jpg" alt="" />
-      <p>Clothing</p>
-    </a>
-  </li>
-  <li class="category">
-    <a href="/electronics"><img src="/static/images/electronics.jpg" alt="" />
-      <p>Electronics</p>
-    </a>
-  </li>
-  <li class="category">
-    <a href=""><img src="/static/images/electronics.jpg" alt="" />
-      <p>Cat1</p>
-    </a>
-  </li>
-  <li class="category">
-    <a href=""><img src="/static/images/electronics.jpg" alt="" />
-      <p>Cat1</p>
-    </a>
-  </li>
-  <li class="category">
-    <a href=""><img src="/static/images/electronics.jpg" alt="" />
-      <p>Cat1</p>
-    </a>
-  </li>
-  <li class="category">
-    <a href=""><img src="/static/images/electronics.jpg" alt="" />
-      <p>Cat1</p>
-    </a>
-  </li>
-</ul>
+  ${allCategories.map(([category, imgUrl]) => categoryLi(category, imgUrl))}
 `
+// category template
+const categoryLi = (category, imgUrl) => html`<li class="category">
+  <a href="/${category}"><img src="${imgUrl}" alt="" />
+    <p>${category}</p>
+  </a>
+</li>`
+
+// accordion link template
+const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/${category}">
+  <img class="accordion__img" src="${imgUrl}" alt="${category}" />
+</a>`
 
 
-export function showHome(ctx, next) {
-  ctx.render(homeTemplate());
-  
+export async function showHome(ctx, next) {
+  // render homepage with all categories
+  const allCategories = Object.entries(await getAllCategories())
+  ctx.render(homeTemplate(allCategories));
+
   // Start accordion animation 
   const accordionLinks = Array.from(document.querySelectorAll('.accordion__link'));
   accrodionAnimation(accordionLinks);

@@ -1,10 +1,11 @@
+import { getCategoryResults } from "../api/data.js";
 import { html } from "../lib.js";
 
 const resultsTemplate = () => html`<h2 class="main-title">Offers</h2>
 <ul class="offers-list">
   <li>
     <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothings.jpg" alt="" /></a>
+      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
 
       <div class="offer-text">
         <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
@@ -16,7 +17,7 @@ const resultsTemplate = () => html`<h2 class="main-title">Offers</h2>
 
   <li>
     <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothings.jpg" alt="" /></a>
+      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
 
       <div class="offer-text">
         <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
@@ -28,7 +29,7 @@ const resultsTemplate = () => html`<h2 class="main-title">Offers</h2>
 
   <li>
     <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothings.jpg" alt="" /></a>
+      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
 
       <div class="offer-text">
         <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
@@ -60,11 +61,13 @@ const resultsTemplate = () => html`<h2 class="main-title">Offers</h2>
 <!-- <p>No offers found...</p> -->`
 
 export function showResults(ctx, next) {
-  console.log('query '+ctx.params.query);
+  console.log('query ' + ctx.params.query);
   ctx.render(resultsTemplate());
 }
 
-export function showCategory(ctx, next) {
-  console.log('category '+ctx.params.category);
+export async function showCategory(ctx, next) {
+  console.log('category ' + ctx.params.category);
+  const results = await getCategoryResults(ctx.params.category);
+  console.log(results);
   ctx.render(resultsTemplate());
 }
