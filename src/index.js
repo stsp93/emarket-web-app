@@ -10,12 +10,14 @@ import { showEdit } from './views/editView.js';
 import { showCreate } from './views/createView.js';
 import { showNotFound } from './views/404View.js';
 import { showProfile } from './views/profileView.js';
+import { logoutController } from './controllers/logoutController.js';
 
 page(decoratorCtx);
 page(showHeader);
 page('/404', showNotFound)
 page('/user/login',showLogin)
 page('/user/register',showRegister)
+page('/user/logout', logoutController)
 page('/profile', showProfile)
 page('/search/:query', showResults)
 page('/details/:id', showDetails)

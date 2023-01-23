@@ -1,5 +1,5 @@
 import { html } from "../lib.js";
-import { accrodionAnimation, clickPrev, clickNext } from "../utils/accordionUtil.js";
+import { accrodionAnimation, clickPrev, clickNext } from "../controllers/accordionController.js";
 
 const homeTemplate = () => html`<h2 class="main-title">Categories</h2>
 <article  class="accordion">

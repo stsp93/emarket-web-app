@@ -11,7 +11,7 @@ async function request(method, url, payload) {
     }
 
     if(getUser()) {
-        const token = getUser().accessToken;
+        const token = getUser().token;
         options.headers['authorization'] = token
     }
     if(payload !== undefined) {
