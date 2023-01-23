@@ -26,7 +26,7 @@ async function request(method, url, payload) {
             if(res.status === 403) {
                 removeUserSession();
             }
-            throw new Error(error.message)
+            throw new Error(error.errors)
         }
 
         if(res.status === 204) {
