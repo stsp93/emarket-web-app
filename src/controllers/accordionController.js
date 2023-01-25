@@ -7,7 +7,7 @@ export function accrodionAnimation(accordionLinks) {
     
     intervalId = setInterval(function () {
         showAccordionLink('increment',accordionLinks)
-      }, 5000)
+      }, 5000);
 }
 
 export function stopAccordionAnimation() {
@@ -21,18 +21,18 @@ export function clickPrev(e) {
 
 export function clickNext(e) {
     e.preventDefault();
-    showAccordionLink('increment', links)
+    showAccordionLink('increment', links);
 }
 
 
 function showAccordionLink(operator,accordionLinks) {
   if (operator === 'increment') {
     counter++
-    if (counter >= accordionLinks.length) counter = 0
+    if (counter >= accordionLinks.length) counter = 0;
   } else if (operator === 'decrement') {
     counter--
     if (counter < 0) counter = accordionLinks.length - 1;
   }
-  accordionLinks.forEach(e => e.classList.remove('accordion__link-active'))
-  accordionLinks[counter].classList.add('accordion__link-active')
+  accordionLinks.forEach(e => e.classList.remove('accordion__link-active'));
+  accordionLinks[counter].classList.add('accordion__link-active');
 }

@@ -20,7 +20,8 @@ const itemCard = (item) => html`<li>
 
     <div class="offer-text">
       <a class="offer-title offer-link" href="">${item.title}</a>
-      <p class="location">Burgas, Bulgaria</p>
+      <p class="location">${item.location}</p>
+      <p class="location">${item.createdOn.slice(0,10)}</p>
       <p class="price"><strong>${item.price}</strong> $</p>
     </div>
   </article>

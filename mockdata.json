@@ -1,0 +1,57 @@
+[
+  {
+    "title": "Women's Skirt",
+    "category": "Clothing",
+    "imageUrl": "https://images.unsplash.com/photo-1583496661160-fb5886a0aaaa?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=864&q=80",
+    "description": "A stylish skirt for women made of a cotton and polyester blend. Features a pencil fit and a back zipper.",
+    "price": 57.99,
+    "owner": "peter",
+    "location": "San Jose",
+    "createdOn": { "$date": { "$numberLong": "1676936831376" } },
+    "__v": 0
+  },
+  {
+    "title": "Men's Suit",
+    "category": "Clothing",
+    "imageUrl": "https://images.unsplash.com/photo-1425421669292-0c3da3b8f529?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1169&q=80",
+    "description": "A classic men's suit made of wool and polyester blend. Comes with a jacket and pants, and available in multiple colors.",
+    "price": 21.99,
+    "owner": "peter",
+    "location": "Houston",
+    "createdOn": { "$date": { "$numberLong": "1677112508320" } },
+    "__v": 0
+  },
+  {
+    "title": "Kids' Hoodie",
+    "category": "Clothing",
+    "imageUrl": "https://images.unsplash.com/photo-1470071131384-001b85755536?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NHx8S2lkcyclMjBIb29kaWV8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "description": "A cozy hoodie for kids made of a cotton and polyester blend. Has a front pocket and comes in a variety of colors.",
+    "price": 97.99,
+    "owner": "peter",
+    "location": "Houston",
+    "createdOn": { "$date": { "$numberLong": "1673135730883" } },
+    "__v": 0
+  },
+  {
+    "title": "Men's Sweater",
+    "category": "Clothing",
+    "imageUrl": "https://images.unsplash.com/photo-1610901157620-340856d0a50f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTB8fFN3ZWF0ZXJ8ZW58MHx8MHx8&auto=format&fit=crop&w=500&q=60",
+    "description": "A warm and comfortable sweater for men made of wool and acrylic blend. Features a V-neck and available in multiple colors.",
+    "price": 113.99,
+    "owner": "john",
+    "location": "New York",
+    "createdOn": { "$date": { "$numberLong": "1675226667548" } },
+    "__v": 0
+  },
+  {
+    "title": "Women's Dress",
+    "category": "Clothing",
+    "imageUrl": "https://images.unsplash.com/photo-1595777457583-95e059d581b8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=783&q=80",
+    "description": "A beautiful dress for women made of a cotton and polyester blend. Features a floral print and a flowy fit.",
+    "price": 92.99,
+    "owner": "peter",
+    "location": "Houston",
+    "createdOn": { "$date": { "$numberLong": "1678910114942" } },
+    "__v": 0
+  }
+]
