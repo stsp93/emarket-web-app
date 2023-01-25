@@ -1,64 +1,31 @@
 import { getCategoryResults } from "../api/data.js";
 import { html } from "../lib.js";
 
-const resultsTemplate = () => html`<h2 class="main-title">Offers</h2>
-<ul class="offers-list">
-  <li>
-    <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
+const resultsTemplate = (results) => html`<h2 class="main-title">Offers</h2>
 
-      <div class="offer-text">
-        <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
-        <p class="location">Burgas, Bulgaria</p>
-        <p class="price"><strong>20.99</strong> $</p>
-      </div>
-    </article>
-  </li>
+${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCard(item))}</ul>` : html`<p
+  class="offer-empty">Nothing found...</p>`}
 
-  <li>
-    <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
-
-      <div class="offer-text">
-        <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
-        <p class="location">Burgas, Bulgaria</p>
-        <p class="price"><strong>20.99</strong> $</p>
-      </div>
-    </article>
-  </li>
-
-  <li>
-    <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothing.jpg" alt="" /></a>
-
-      <div class="offer-text">
-        <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
-        <p class="location">Burgas, Bulgaria</p>
-        <p class="price"><strong>20.99</strong> $</p>
-      </div>
-    </article>
-  </li>
-
-  <li>
-    <article class="offer-card">
-      <a href="" class="offer-link"><img class="offer-img" src="/static/images/clothings.jpg" alt="" /></a>
-
-      <div class="offer-text">
-        <a class="offer-title offer-link" href="">Brand new Nice Thingy that's red</a>
-        <p class="location">Burgas, Bulgaria</p>
-        <p class="price"><strong>20.99</strong> $</p>
-      </div>
-    </article>
-  </li>
-</ul>
 
 <div class="pagination">
   <button class="pagination-arrow"><i class="fa-solid fa-chevron-left"></i></button>
   <p class="page">1/2</p>
   <button class="pagination-arrow"><i class="fa-solid fa-chevron-right"></i></button>
-</div>
-<!--  if 0 offers  -->
-<!-- <p>No offers found...</p> -->`
+</div>`
+
+// item card template
+const itemCard = (item) => html`<li>
+  <article class="offer-card">
+    <a href="/details/${item._id}" class="offer-link"><img class="offer-img" src="${item.imageUrl}" alt="" /></a>
+
+    <div class="offer-text">
+      <a class="offer-title offer-link" href="">${item.title}</a>
+      <p class="location">Burgas, Bulgaria</p>
+      <p class="price"><strong>${item.price}</strong> $</p>
+    </div>
+  </article>
+</li>`
+
 
 export function showResults(ctx, next) {
   console.log('query ' + ctx.params.query);
@@ -69,5 +36,5 @@ export async function showCategory(ctx, next) {
   console.log('category ' + ctx.params.category);
   const results = await getCategoryResults(ctx.params.category);
   console.log(results);
-  ctx.render(resultsTemplate());
+  ctx.render(resultsTemplate(results));
 }

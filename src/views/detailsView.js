@@ -2,7 +2,7 @@ import { html } from "../lib.js";
 
 const detailsTemplate = () => html`<h2 class="main-title">&rAarr; <a href="">Clothing</a></h2>
 <article class="detials">
-    <img src="/static/images/clothings.jpg" alt="" class="main-image">
+    <img src="/static/images/clothing.jpg" alt="" class="main-image">
     <div class="details-text">
         <h3 class="details-title">
             Kyoto VIP (skrilleaks Edit)

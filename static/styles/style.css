@@ -207,7 +207,7 @@ main {
 }
 
 .offer-card {
-  max-width: 50rem;
+  width: 50rem;
   display: flex;
   gap: 1rem;
 
@@ -241,6 +241,13 @@ main {
 
 .price strong {
   font-weight: 600;
+}
+
+.offer-empty {
+  display: block;
+text-align: center;
+font-size: 2rem;
+margin-bottom: 3rem;
 }
 
 /* pagination */
@@ -437,7 +444,7 @@ footer {
   }
 
   .offer-card {
-    max-width: 40rem;
+    width: 40rem;
   }
 
   .nav__li{
@@ -461,7 +468,7 @@ footer {
     gap: 1rem;
   }
   .offer-card{
-    max-width: 100%;
+    width: 100%;
     margin-bottom: 0;
   }
 
