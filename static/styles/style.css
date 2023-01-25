@@ -408,6 +408,22 @@ footer {
   border-radius: 40px;
 }
 
+/* skeleton class */
+.skeleton {
+  background-color: #e1e1e1;
+  animation: skeleton-loading 1s infinite alternate;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-color: hsl(200, 20%, 70%);
+  }
+  100% {
+    background-color: hsl(200, 20%, 95%);
+  }
+}
+
+
 
 
 

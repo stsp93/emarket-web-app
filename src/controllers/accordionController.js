@@ -6,7 +6,6 @@ export function accrodionAnimation(accordionLinks) {
     links = accordionLinks;
     
     intervalId = setInterval(function () {
-      console.log('animation');
         showAccordionLink('increment',accordionLinks)
       }, 5000)
 }

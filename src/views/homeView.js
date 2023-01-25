@@ -22,7 +22,7 @@ const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</
 `
 // category template
 const categoryLi = (category, imgUrl) => html`<li class="category">
-  <a href="/${category}"><img src="${imgUrl}" alt="" />
+  <a href="/${category}"><img class="skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="" />
     <p>${category}</p>
   </a>
 </li>`
@@ -35,14 +35,13 @@ const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href
 
 export async function showHome(ctx, next) {
   // render homepage with all categories
-  const allCategories = Object.entries(await getAllCategories())
+  const allCategories = Object.entries(await getAllCategories());
   ctx.render(homeTemplate(allCategories));
 
-  // Start accordion animation 
-  
 }
 
 function animateAccordion() {
+  // Start accordion animation on image
   const accordionLinks = Array.from(document.querySelectorAll('.accordion__link'));
   accrodionAnimation(accordionLinks);
 }
