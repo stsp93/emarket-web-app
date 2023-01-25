@@ -5,7 +5,7 @@ import { getAllCategories } from "../api/data.js";
 const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</h2>
 <article class="accordion">
   <a class="accordion__link accordion__link-active" href="/">
-    <img class="accordion__img" src="/static/images/open.jpg" alt="e-market" />
+    <img @load=${animateAccordion} class="accordion__img" src="/static/images/open.jpg" alt="e-market" />
   </a>
   ${allCategories.map(([category, imgUrl]) => accordionLink(category, imgUrl))}
   <button @click=${clickPrev} class="accordion__prev accordion__button">
@@ -39,6 +39,10 @@ export async function showHome(ctx, next) {
   ctx.render(homeTemplate(allCategories));
 
   // Start accordion animation 
+  
+}
+
+function animateAccordion() {
   const accordionLinks = Array.from(document.querySelectorAll('.accordion__link'));
   accrodionAnimation(accordionLinks);
 }

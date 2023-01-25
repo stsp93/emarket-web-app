@@ -4,11 +4,15 @@ let links;
 
 export function accrodionAnimation(accordionLinks) {
     links = accordionLinks;
-    if(intervalId) clearInterval(intervalId);
     
     intervalId = setInterval(function () {
+      console.log('animation');
         showAccordionLink('increment',accordionLinks)
       }, 5000)
+}
+
+export function stopAccordionAnimation() {
+  if(intervalId) clearInterval(intervalId);
 }
 
 export function clickPrev(e) {

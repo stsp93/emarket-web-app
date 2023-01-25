@@ -1,5 +1,5 @@
 import {page} from './lib.js';
-import { decoratorCtx, isAuth } from './middleware.js';
+import { accordionMiddleware, decoratorCtx, isAuth } from './middleware.js';
 import { showHeader } from './views/headerView.js';
 import { showLogin } from './views/loginView.js';
 import { showRegister } from './views/registerView.js';
@@ -14,6 +14,7 @@ import { logoutController } from './controllers/logoutController.js';
 
 page(decoratorCtx);
 page(showHeader);
+page(accordionMiddleware);
 page('/404', showNotFound)
 page('/user/login',showLogin)
 page('/user/register',showRegister)
