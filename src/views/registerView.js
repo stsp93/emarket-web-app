@@ -54,7 +54,6 @@ async function onRegister(e) {
 
     context.page.redirect('/user/login')
   } catch (err) {
-    console.log(err);
     context.render(registerTemplate(err))
   }
 }

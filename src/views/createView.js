@@ -1,8 +1,9 @@
-import { html } from "../lib.js";
+import { createListing } from "../api/data.js";
+import { html, nothing } from "../lib.js";
 
-const createTemplate = () => html`<h2 class="main-title">Create</h2>
+const createTemplate = (err) => html`<h2 class="main-title">Create</h2>
 
-<form class="user-form" method="POST">
+<form @submit=${onCreate} class="user-form" method="POST">
   <article class="input-group">
     <label for="title">Title*</label>
     <input
@@ -38,6 +39,15 @@ const createTemplate = () => html`<h2 class="main-title">Create</h2>
     />
   </article>
   <article class="input-group">
+    <label for="location">Location*</label>
+    <input
+      id="location"
+      type="text"
+      name="location"
+      placeholder="London, GB"
+    />
+  </article>
+  <article class="input-group">
     <label for="imageUrl">Image Url</label>
     <input
       id="imageUrl"
@@ -48,7 +58,8 @@ const createTemplate = () => html`<h2 class="main-title">Create</h2>
   </article>
   
   <article class="input-group">
-      <p class="message-field">* Mandatory fields</p>
+    ${err ? html`<p class="message-field">* ${err}</p>`: nothing}
+      
   </article>
 
   <article class="input-group">
@@ -56,6 +67,33 @@ const createTemplate = () => html`<h2 class="main-title">Create</h2>
   </article>
 </form>`
 
+
+let context;
 export function showCreate(ctx, next) {
-    ctx.render(createTemplate())
+    context = ctx
+    ctx.render(createTemplate());
+
+}
+
+async function onCreate(e) {
+  e.preventDefault();
+
+  const form = new FormData(e.target);
+  const payload = Object.fromEntries(form);
+  const { title, description, price, location, imageUrl } = payload;
+  try {
+    // Payload Validations
+    const emptyFields = Object.entries(payload).filter(([k,v]) => v === '').map(([k,v]) => k);
+    if(emptyFields.length> 0) throw new Error(`${emptyFields.join(', ')} can\'t be empty`);
+    if(title.length < 3) throw new Error('Title need to be at least 3 characters long');
+
+    if(Number.isNaN(+price)) throw new Error('Price need to be a number');
+
+    // Create listing
+    await createListing(payload);
+
+    context.page.redirect('/profile')
+  }catch(err) {
+    context.render(createTemplate(err) );
+  }
 }
