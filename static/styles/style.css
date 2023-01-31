@@ -278,6 +278,7 @@ margin-bottom: 3rem;
 
 .main-image {
   width: 90%;
+  max-width: 80rem;
   border-radius: 5px;
 }
 

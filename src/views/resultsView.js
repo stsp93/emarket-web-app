@@ -16,10 +16,10 @@ ${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCa
 // item card template
 const itemCard = (item) => html`<li>
   <article class="offer-card">
-    <a href="/details/${item._id}" class="offer-link"><img class="offer-img" src="${item.imageUrl}" alt="" /></a>
+    <a href="/details/${item._id}" class="offer-link"><img class="offer-img" src="${item.imageUrl}" alt="${item.title}" /></a>
 
     <div class="offer-text">
-      <a class="offer-title offer-link" href="">${item.title}</a>
+      <a class="offer-title offer-link" href="/details/${item._id}">${item.title}</a>
       <p class="location">${item.location}</p>
       <p class="location">${item.createdOn.slice(0,10)}</p>
       <p class="price"><strong>${item.price}</strong> $</p>

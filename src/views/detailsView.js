@@ -1,29 +1,34 @@
+import { getUser } from "../api/auth.js";
+import { getItemDetails } from "../api/data.js";
 import { html } from "../lib.js";
 
-const detailsTemplate = () => html`<h2 class="main-title">&rAarr; <a href="">Clothing</a></h2>
+const detailsTemplate = (item, isOwner) => html`<h2 class="main-title">&rAarr; <a href="/${item.category}">${item.category}</a></h2>
 <article class="detials">
-    <img src="/static/images/clothing.jpg" alt="" class="main-image">
+    <img src="${item.imageUrl}" alt="${item.title}" class="main-image">
     <div class="details-text">
         <h3 class="details-title">
-            Kyoto VIP (skrilleaks Edit)
+            ${item.title}
         </h3>
-        <p class="details-date">01.03.2019</p>
-        <p class="price">Price: <strong>100</strong> $</p>
+        <p class="details-date">${item.createdOn.slice}</p>
+        <p class="price">Price: <strong>${item.price}</strong> $</p>
         <p class="details-description"><strong>Description: </strong>  
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestias voluptatem, deserunt perferendis, provident vitae recusandae, quasi tempore porro eligendi est temporibus laboriosam? Mollitia laboriosam blanditiis optio cumque architecto doloribus eos!
+            ${item.description}
         </p>
         <br>
-        <p class="details-owner">Posted by: <em>john123</em></p>
+        <p class="details-owner">Posted by: <em>${item.owner}</em></p>
     </div>
     <div class="details-buttons">
-        <a href="" class="details-edit">Edit</a>
-        <a href="" class="details-delete">Delete</a>
-        <a href="" class="details-contact">Contact</a>
-        <a href="" class="details-back">Back</a>
+        ${isOwner ? 
+            html`<a href="" class="details-edit">Edit</a>
+        <a href="" class="details-delete">Delete</a>`:
+    html`<a href="" class="details-contact">Contact</a>`}     
+        <a href="/${item.category}" class="details-back">Back to ${item.category}</a>
     </div>
 
 </article>`
 
-export function showDetails(ctx, next) {
-    ctx.render(detailsTemplate())
+export async function showDetails(ctx, next) {
+    const itemDetails = await getItemDetails(ctx.params.id);
+    const isOwner = getUser().username === itemDetails.owner;
+    ctx.render(detailsTemplate(itemDetails, isOwner))
 }
