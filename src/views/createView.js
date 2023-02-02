@@ -1,7 +1,8 @@
-import { createListing } from "../api/data.js";
+import { createListing, getAllCategories } from "../api/data.js";
 import { html, nothing } from "../lib.js";
+import { validatePayload } from "../utils/payloadValidation.js";
 
-const createTemplate = (err) => html`<h2 class="main-title">Create</h2>
+const createTemplate = (categories, err) => html`<h2 class="main-title">Create</h2>
 
 <form @submit=${onCreate} class="user-form" method="POST">
   <article class="input-group">
@@ -16,12 +17,7 @@ const createTemplate = (err) => html`<h2 class="main-title">Create</h2>
   <article class="input-group">
     <label for="category">Category*</label>
     <select name="category" id="category">
-      <option value="Clothing">Clothing</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Deals">Deals</option>
-      <option value="Entertainment">Entertainment</option>
-      <option value="Hobbies">Hobbies</option>
-      <option value="Housing">Housing</option>
+      ${categories.map(c => html`<option value="${c}">${c}</option>`)}
     </select>
   </article>
   <article class="input-group">
@@ -69,9 +65,13 @@ const createTemplate = (err) => html`<h2 class="main-title">Create</h2>
 
 
 let context;
-export function showCreate(ctx, next) {
-    context = ctx
-    ctx.render(createTemplate());
+
+export async function showCreate(ctx, next) {
+  const categories =Object.keys(await getAllCategories()) 
+  context = ctx
+  context.categories = categories
+    console.log(categories);
+    ctx.render(createTemplate(categories));
 
 }
 
@@ -80,20 +80,15 @@ async function onCreate(e) {
 
   const form = new FormData(e.target);
   const payload = Object.fromEntries(form);
-  const { title, description, price, location, imageUrl } = payload;
-  try {
-    // Payload Validations
-    const emptyFields = Object.entries(payload).filter(([k,v]) => v === '').map(([k,v]) => k);
-    if(emptyFields.length> 0) throw new Error(`${emptyFields.join(', ')} can\'t be empty`);
-    if(title.length < 3) throw new Error('Title need to be at least 3 characters long');
 
-    if(Number.isNaN(+price)) throw new Error('Price need to be a number');
+  try {
+    validatePayload(payload)
 
     // Create listing
     await createListing(payload);
 
     context.page.redirect('/profile')
   }catch(err) {
-    context.render(createTemplate(err) );
+    context.render(createTemplate(context.categories,err) );
   }
 }
