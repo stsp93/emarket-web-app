@@ -26,3 +26,13 @@ export async function getItemDetails(id) {
     const res = await api.get(endpoints.byId(id));
     return res;
 }
+
+export async function deleteItemListing(id) {
+    const res = await api.del(endpoints.byId(id));
+    return res;
+}
+
+export async function editListing(id, payload) {
+    const res = await api.put(endpoints.byId(id), payload);
+    return res;
+}
