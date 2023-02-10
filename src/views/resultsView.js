@@ -1,7 +1,7 @@
 import { getCategoryResults } from "../api/data.js";
 import { html } from "../lib.js";
 
-const resultsTemplate = (results) => html`<h2 class="main-title">Offers</h2>
+const resultsTemplate = (results, category) => html`<h2 class="main-title">Offers in ${category}</h2>
 
 ${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCard(item))}</ul>` : html`<p
   class="offer-empty">Nothing found...</p>`}
@@ -16,12 +16,13 @@ ${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCa
 // item card template
 const itemCard = (item) => html`<li>
   <article class="offer-card">
-    <a href="/details/${item._id}" class="offer-link"><img class="offer-img" src="${item.imageUrl}" alt="${item.title}" /></a>
+    <a href="/offers/${item._id}" class="offer-link"><img class="offer-img" src="${item.imageUrl}"
+        alt="${item.title}" /></a>
 
     <div class="offer-text">
-      <a class="offer-title offer-link" href="/details/${item._id}">${item.title}</a>
+      <a class="offer-title offer-link" href="/offers/${item._id}">${item.title}</a>
       <p class="location">${item.location}</p>
-      <p class="location">${item.createdOn.slice(0,10)}</p>
+      <p class="location">${item.createdOn.slice(0, 10)}</p>
       <p class="price"><strong>${item.price}</strong> $</p>
     </div>
   </article>
@@ -34,8 +35,13 @@ export function showResults(ctx, next) {
 }
 
 export async function showCategory(ctx, next) {
-  console.log('category ' + ctx.params.category);
-  const results = await getCategoryResults(ctx.params.category);
-  console.log(results);
-  ctx.render(resultsTemplate(results));
+  const category = ctx.params.category
+  try {
+    const results = await getCategoryResults(category);
+    ctx.render(resultsTemplate(results, category));
+  } catch (error) {
+    console.log(error);
+    ctx.page.redirect('/404')
+  }
+
 }

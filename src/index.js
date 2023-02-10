@@ -15,17 +15,16 @@ import { logoutController } from './controllers/logoutController.js';
 page(decoratorCtx);
 page(showHeader);
 page(accordionMiddleware);
-page('/404', showNotFound)
 page('/user/login',showLogin)
 page('/user/register',showRegister)
 page('/user/logout', logoutController)
 page('/profile',isAuth ,showProfile)
 page('/search/:query', showResults)
-page('/details/:id', showDetails)
-page('/edit/:id',isAuth,showEdit)
-page('/create',isAuth, showCreate)
-page('/:category', showCategory)
+page('/offers/create',isAuth, showCreate)
+page('/offers/:id/edit',isAuth,showEdit)
+page('/offers/:id', showDetails)
+page('/category/:category', showCategory)
 page('/',showHome)
-page('*','/404');
+page('*',showNotFound);
 
 page.start()

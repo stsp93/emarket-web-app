@@ -10,14 +10,11 @@ const createHeader = (user) => html`<div class="logo">
     <i class="fa-solid fa-bars"></i>
   </button>
   <ul>
-    <!-- FOR DEV ONLY -->
-    <li class="nav__li"><a href="/edit/1234">DEV ONLY edit</a></li>
-
     ${user
         ? html`
         <!-- USER -->
         <li class="nav__li"><a href="/profile">Profile</a></li>
-    <li class="nav__li"><a href="/create">Create listing</a></li>
+    <li class="nav__li"><a href="/offers/create">Create listing</a></li>
     <li class="nav__li"><a href="/user/logout">Logout</a></li>`
         : html`
     <!-- GUEST -->

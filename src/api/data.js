@@ -2,7 +2,7 @@ import * as api from './api.js';
 
 const endpoints = {
     'allCategories': '/items/categories',
-    'category': (category) => `/items/${category}`,
+    'byCategory': (category) => `/items?cat=${category}`,
     'create': '/items',
     'byId': (id)  => `/items/${id}`
 }
@@ -13,7 +13,7 @@ export async function getAllCategories() {
 }
 
 export async function getCategoryResults(category) {
-    const res = await api.get(endpoints.category(category));
+    const res = await api.get(endpoints.byCategory(category));
     return res;
 }
 

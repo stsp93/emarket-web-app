@@ -7,6 +7,5 @@ const notFoundTemplate = () => html`        <h2 class="main-title">Page not Foun
 </article>`
 
 export function showNotFound(ctx,next) {
-    ctx.page.redirect('/404')
     ctx.render(notFoundTemplate());
 }

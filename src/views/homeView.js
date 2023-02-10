@@ -22,13 +22,13 @@ const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</
 `
 // category template
 const categoryLi = (category, imgUrl) => html`<li class="category">
-  <a href="/${category}"><img class="skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="" />
+  <a href="/category/${category}"><img class="skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="" />
     <p>${category}</p>
   </a>
 </li>`
 
 // accordion link template
-const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/${category}">
+const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/category/${category}">
   <img class="accordion__img" src="${imgUrl}" alt="${category}" />
 </a>`
 

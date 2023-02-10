@@ -66,7 +66,7 @@ async function onEdit(e) {
   try {
     validatePayload(payload);
     await editListing(context.params.id, payload);
-    context.page.redirect(`/details/${context.params.id}`);
+    context.page.redirect(`/offers/${context.params.id}`);
   } catch(err) {
     context.render(editTemplate(context.itemDetails, context.categories, err))
   }
@@ -74,6 +74,6 @@ async function onEdit(e) {
 
 function onCancel() {
 
-    context.page.redirect(`/details/${context.params.id}`)
+    context.page.redirect(`/offers/${context.params.id}`)
 
 }

@@ -2,7 +2,7 @@ import { getUser } from "../api/auth.js";
 import { deleteItemListing, getItemDetails } from "../api/data.js";
 import { html } from "../lib.js";
 
-const detailsTemplate = (item, isOwner) => html`<h2 class="main-title">&rAarr; <a href="/${item.category}">${item.category}</a></h2>
+const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a href="/category/${item.category}">${item.category}</a></h2>
 <article class="detials">
     <img src="${item.imageUrl}" alt="${item.title}" class="main-image">
     <div class="details-text">
@@ -18,11 +18,11 @@ const detailsTemplate = (item, isOwner) => html`<h2 class="main-title">&rAarr; <
         <p class="details-owner">Posted by: <em>${item.owner}</em></p>
     </div>
     <div class="details-buttons">
-        ${isOwner ? 
-            html`<a href="/edit/${item._id}" class="details-edit">Edit</a>
+        ${item.isOwner ? 
+            html`<a href="/offers/${item._id}/edit" class="details-edit">Edit</a>
         <a @click=${onDelete} href="" class="details-delete">Delete</a>`:
     html`<a href="" class="details-contact">Contact</a>`}     
-        <a href="/${item.category}" class="details-back">Back to ${item.category}</a>
+        <a href="/category/${item.category}" class="details-back">Back to ${item.category}</a>
     </div>
 
 </article>`
@@ -31,8 +31,9 @@ let context;
 export async function showDetails(ctx, next) {
     context = ctx;
     const itemDetails = await getItemDetails(ctx.params.id);
-    const isOwner = getUser()?.username === itemDetails.owner;
-    ctx.render(detailsTemplate(itemDetails, isOwner))
+    console.log(itemDetails);
+    itemDetails.isOwner = getUser()?.username === itemDetails.owner;
+    ctx.render(detailsTemplate(itemDetails))
 }
 
 
