@@ -4,9 +4,7 @@ import { getAllCategories } from "../api/data.js";
 
 const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</h2>
 <article class="accordion">
-  <a class="accordion__link accordion__link-active" href="/">
-    <img @load=${animateAccordion} class="accordion__img" src="/static/images/open.jpg" alt="e-market" />
-  </a>
+  
   ${allCategories.map(([category, imgUrl]) => accordionLink(category, imgUrl))}
   <button @click=${clickPrev} class="accordion__prev accordion__button">
     <i class="fa-solid fa-chevron-left"></i>
@@ -28,8 +26,8 @@ const categoryLi = (category, imgUrl) => html`<li class="category">
 </li>`
 
 // accordion link template
-const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/category/${category}">
-  <img class="accordion__img" src="${imgUrl}" alt="${category}" />
+const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/category/${category}"><div class="accordion__sign">Shop now in ${category}</div>
+  <img class="accordion__img skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="${category}" />
 </a>`
 
 
@@ -37,7 +35,7 @@ export async function showHome(ctx, next) {
   // render homepage with all categories
   const allCategories = Object.entries(await getAllCategories());
   ctx.render(homeTemplate(allCategories));
-
+  animateAccordion();
 }
 
 function animateAccordion() {

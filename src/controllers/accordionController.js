@@ -1,31 +1,33 @@
+import { ACCORDION_INTERVAL } from "../config/constants.js";
+
 let counter = 0;
 let intervalId;
 let links;
 
 export function accrodionAnimation(accordionLinks) {
-    links = accordionLinks;
-    
-    intervalId = setInterval(function () {
-        showAccordionLink('increment',accordionLinks)
-      }, 5000);
+  links = accordionLinks;
+
+  intervalId = setInterval(function () {
+    showAccordionLink('increment', accordionLinks);
+  }, ACCORDION_INTERVAL * 1000);
 }
 
 export function stopAccordionAnimation() {
-  if(intervalId) clearInterval(intervalId);
+  if (intervalId) clearInterval(intervalId);
 }
 
 export function clickPrev(e) {
-    e.preventDefault();
-    showAccordionLink('decrement', links);
+  e.preventDefault();
+  showAccordionLink('decrement', links);
 }
 
 export function clickNext(e) {
-    e.preventDefault();
-    showAccordionLink('increment', links);
+  e.preventDefault();
+  showAccordionLink('increment', links);
 }
 
 
-function showAccordionLink(operator,accordionLinks) {
+function showAccordionLink(operator, accordionLinks) {
   if (operator === 'increment') {
     counter++
     if (counter >= accordionLinks.length) counter = 0;

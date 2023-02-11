@@ -96,16 +96,18 @@ header {
 
   /* homepage accordion */
   .accordion {
-    display: none;
+    /* display: none; */
+    position: relative;
     margin: 0 auto;
     margin-bottom: 3rem;
 
     position: relative;
-    height: 20rem;
+    height: 30rem;
     width: 80%;
+
   }
-  .accordion a::before {
-    content: "Shop Now";
+  .accordion__sign {
+    /* content: "Shop Now"; */
     position: absolute;
     
     color: var(--dark-gray);
@@ -115,7 +117,6 @@ header {
     font-size: 3rem;
     font-weight: 600;
     padding: 1rem;
-    z-index: 2;
 
   }
 
@@ -140,11 +141,20 @@ header {
     font-size: 6rem;
   }
   .accordion__link {
-    display: none;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    z-index: 2;
+    transition: all 0.3s;
+    opacity: 0;
+    transform: translate(20%, 0);
   } 
 
   .accordion__link-active {
     display: inline;
+    z-index: 10;
+    opacity: 1;
+    transform: translate(0, 0);
   }
 
 
