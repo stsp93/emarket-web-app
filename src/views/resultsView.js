@@ -1,7 +1,7 @@
-import { getCategoryResults } from "../api/data.js";
+import { getCategoryResults, searchItems } from "../api/data.js";
 import { html } from "../lib.js";
 
-const resultsTemplate = (results, category) => html`<h2 class="main-title">Offers in ${category}</h2>
+const resultsTemplate = (results, title) => html`<h2 class="main-title">${title}</h2>
 
 ${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCard(item))}</ul>` : html`<p
   class="offer-empty">Nothing found...</p>`}
@@ -29,9 +29,15 @@ const itemCard = (item) => html`<li>
 </li>`
 
 
-export function showResults(ctx, next) {
-  console.log('query ' + ctx.params.query);
-  ctx.render(resultsTemplate());
+export async function showResults(ctx, next) {
+  const query= ctx.params.query
+  const results =  await searchItems(query);
+  const title = `${results.length} result${results.length === 1 ? '': 's'} found`;
+
+
+
+  ctx.render(resultsTemplate(results, title));
+  if(query) document.getElementsByClassName('search-box').value = query
 }
 
 export async function showCategory(ctx, next) {

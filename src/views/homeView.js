@@ -1,6 +1,7 @@
 import { html } from "../lib.js";
 import { accrodionAnimation, clickPrev, clickNext } from "../controllers/accordionController.js";
 import { getAllCategories } from "../api/data.js";
+import { removeSkeleton } from "../utils/skeletonUtil.js";
 
 const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</h2>
 <article class="accordion">
@@ -20,14 +21,14 @@ const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</
 `
 // category template
 const categoryLi = (category, imgUrl) => html`<li class="category">
-  <a href="/category/${category}"><img class="skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="" />
+  <a href="/category/${category}"><img class="skeleton" @load=${removeSkeleton} src="${imgUrl}" alt="" />
     <p>${category}</p>
   </a>
 </li>`
 
 // accordion link template
 const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href="/category/${category}"><div class="accordion__sign">Shop now in ${category}</div>
-  <img class="accordion__img skeleton" @load=${function(e) {e.target.classList.remove('skeleton')}} src="${imgUrl}" alt="${category}" />
+  <img class="accordion__img skeleton" @load=${removeSkeleton}} src="${imgUrl}" alt="${category}" />
 </a>`
 
 
@@ -43,5 +44,6 @@ function animateAccordion() {
   const accordionLinks = Array.from(document.querySelectorAll('.accordion__link'));
   accrodionAnimation(accordionLinks);
 }
+
 
 

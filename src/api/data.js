@@ -4,7 +4,8 @@ const endpoints = {
     'allCategories': '/items/categories',
     'byCategory': (category) => `/items?cat=${category}`,
     'create': '/items',
-    'byId': (id)  => `/items/${id}`
+    'byId': (id)  => `/items/${id}`,
+    'search': (query) => `/items?q=${query}`
 }
 
 export async function getAllCategories() {
@@ -34,5 +35,10 @@ export async function deleteItemListing(id) {
 
 export async function editListing(id, payload) {
     const res = await api.put(endpoints.byId(id), payload);
+    return res;
+}
+
+export async function searchItems(query) {
+    const res = await api.get(endpoints.search(query));
     return res;
 }
