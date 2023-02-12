@@ -1,16 +1,19 @@
 import { getCategoryResults, searchItems } from "../api/data.js";
+import { RESULTS_PER_PAGE } from "../config/constants.js";
 import { html } from "../lib.js";
 
-const resultsTemplate = (results, title) => html`<h2 class="main-title">${title}</h2>
+const resultsTemplate = (resultsData, title) => html`<h2 class="main-title">${title}</h2>
 
-${results.length > 0 ? html`<ul class="offers-list">${results.map(item => itemCard(item))}</ul>` : html`<p
-  class="offer-empty">Nothing found...</p>`}
+${resultsData.results.length > 0 ? html`<ul class="offers-list">${resultsData.results.map(item => itemCard(item))}</ul>`
+: html`<p class="offer-empty">Nothing found...</p>`}
 
 
 <div class="pagination">
-  <button class="pagination-arrow"><i class="fa-solid fa-chevron-left"></i></button>
-  <p class="page">1/2</p>
-  <button class="pagination-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+  <button @click=${changePage.bind(null, resultsData.page - 1)} class="pagination-arrow"><i
+      class="fa-solid fa-chevron-left"></i></button>
+  <p class="page">${resultsData.page}/${resultsData.pages}</p>
+  <button @click=${changePage.bind(null, resultsData.page + 1)} class="pagination-arrow"><i
+      class="fa-solid fa-chevron-right"></i></button>
 </div>`
 
 // item card template
@@ -29,26 +32,46 @@ const itemCard = (item) => html`<li>
 </li>`
 
 
+let allResults;
+let context;
+let title;
 export async function showResults(ctx, next) {
-  const query= ctx.query
-  console.log(query);
-  const results =  await searchItems(query);
-  const title = `${results.length} result${results.length === 1 ? '': 's'} found`;
+  context = ctx;
+  const query = ctx.query
+  allResults = await searchItems(query);
+  title = `${allResults.length} result${allResults.length === 1 ? '' : 's'} found`;
 
+  const resultsData = paginationParser(allResults);
 
-
-  ctx.render(resultsTemplate(results, title));
-  if(query) document.getElementsByClassName('search-box').value = query
+  ctx.render(resultsTemplate(resultsData, title));
+  if (query) document.getElementsByClassName('search-box').value = query
 }
 
 export async function showCategory(ctx, next) {
+    context = ctx;
   const category = ctx.params.category
+  title = category;
   try {
-    const results = await getCategoryResults(category);
-    ctx.render(resultsTemplate(results, category));
+    allResults = await getCategoryResults(category);
+    const resultsData = paginationParser(allResults);
+    ctx.render(resultsTemplate(resultsData, category));
   } catch (error) {
     console.log(error);
     ctx.page.redirect('/404')
   }
 
+}
+
+// Pagination logic
+
+function paginationParser(allResults, page = 1) {
+  const results = allResults.slice((page - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE * page);
+  const pages = Math.ceil(allResults.length / RESULTS_PER_PAGE);
+  return { results, page, pages }
+}
+
+function changePage(page) {
+  const resultsData = paginationParser(allResults, page)
+  if(resultsData.page === 0 || resultsData.page > resultsData.pages) return;
+  context.render(resultsTemplate(resultsData, title));
 }

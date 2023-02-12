@@ -31,7 +31,6 @@ let context;
 export async function showDetails(ctx, next) {
     context = ctx;
     const itemDetails = await getItemDetails(ctx.params.id);
-    console.log(itemDetails);
     itemDetails.isOwner = getUser()?.username === itemDetails.owner;
     ctx.render(detailsTemplate(itemDetails))
 }
