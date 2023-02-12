@@ -8,6 +8,19 @@ export function decoratorCtx(ctx,next) {
     ctx.render = function(section) {
         render(section,root)
     }
+    ctx.query = parseQueryString(ctx.querystring)
+    // query parser
+    function parseQueryString(query) {
+        let params = {};
+        let queries = query.split("&");
+        for (let i = 0; i < queries.length; i++) {
+          let temp = queries[i].split("=");
+          params[temp[0]] = temp[1];
+        }
+        return params;
+      }
+
+
     next()
 }
 

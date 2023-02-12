@@ -50,7 +50,7 @@ function onSearch(e) {
   const form = new FormData(e.target);
   const query = Object.fromEntries(form).query;
 
-  context.page.redirect(`/search/${query}`);
+  context.page.redirect(`/search?q=${query}`);
 
 }
 

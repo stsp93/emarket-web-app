@@ -30,7 +30,8 @@ const itemCard = (item) => html`<li>
 
 
 export async function showResults(ctx, next) {
-  const query= ctx.params.query
+  const query= ctx.query
+  console.log(query);
   const results =  await searchItems(query);
   const title = `${results.length} result${results.length === 1 ? '': 's'} found`;
 
