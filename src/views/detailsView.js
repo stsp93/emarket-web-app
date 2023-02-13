@@ -1,6 +1,7 @@
 import { getUser } from "../api/auth.js";
 import { deleteItemListing, getItemDetails } from "../api/data.js";
 import { html } from "../lib.js";
+import { onDelete } from "../utils/deleteListing.js";
 
 const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a href="/category/${item.category}">${item.category}</a></h2>
 <article class="detials">
@@ -36,13 +37,3 @@ export async function showDetails(ctx, next) {
 }
 
 
-async function onDelete() {
-    if(confirm('Are you sure you want to delete that listing?')) {
-        try {
-            await deleteItemListing(context.params.id);
-            context.page.redirect('/profile')
-        } catch (err) {
-            alert(err)
-        }
-    }
-}

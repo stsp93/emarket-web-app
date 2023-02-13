@@ -5,7 +5,8 @@ const endpoints = {
     'allInCategory': (category) => `/items?cat=${category}`,
     'create': '/items',
     'byId': (id)  => `/items/${id}`,
-    'search': (query, category) => `/items?q=${query}&cat=${category}`
+    'search': (query, category) => `/items?q=${query}&cat=${category}`,
+    'profile': '/users/profile'
 }
 
 export async function getAllCategories() {
@@ -40,5 +41,10 @@ export async function editListing(id, payload) {
 
 export async function searchItems(query) {
     const res = await api.get(endpoints.search(query.q = '', query.cat = ''));
+    return res;
+}
+
+export async function getProfile() {
+    const res = await api.get(endpoints.profile);
     return res;
 }

@@ -62,7 +62,7 @@ async function onEdit(e) {
   if(!confirm('Are you sure you want to edit this listing?')) return;
   const form = new FormData(e.target)
   const payload = Object.fromEntries(form) ;
-
+  console.log(payload);
   try {
     validatePayload(payload);
     await editListing(context.params.id, payload);
