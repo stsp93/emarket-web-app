@@ -11,7 +11,7 @@ ${resultsData.results.length > 0 ? html`<ul class="offers-list">${resultsData.re
 <div class="pagination">
   <button @click=${changePage.bind(null, resultsData.page - 1)} class="pagination-arrow"><i
       class="fa-solid fa-chevron-left"></i></button>
-  <p class="page">${resultsData.page}/${resultsData.pages}</p>
+  <p class="page">${resultsData.page}/${resultsData.pages || 1}</p>
   <button @click=${changePage.bind(null, resultsData.page + 1)} class="pagination-arrow"><i
       class="fa-solid fa-chevron-right"></i></button>
 </div>`
@@ -31,10 +31,12 @@ const itemCard = (item) => html`<li>
   </article>
 </li>`
 
-
+// State
 let allResults;
 let context;
 let title;
+let currentPage= 1;
+
 export async function showResults(ctx, next) {
   context = ctx;
   const query = ctx.query
@@ -64,7 +66,7 @@ export async function showCategory(ctx, next) {
 
 // Pagination logic
 
-function paginationParser(allResults, page = 1) {
+function paginationParser(allResults, page = currentPage) {
   const results = allResults.slice((page - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE * page);
   const pages = Math.ceil(allResults.length / RESULTS_PER_PAGE);
   return { results, page, pages }
@@ -73,5 +75,6 @@ function paginationParser(allResults, page = 1) {
 function changePage(page) {
   const resultsData = paginationParser(allResults, page)
   if(resultsData.page === 0 || resultsData.page > resultsData.pages) return;
+  currentPage = page;
   context.render(resultsTemplate(resultsData, title));
 }
