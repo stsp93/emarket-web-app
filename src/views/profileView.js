@@ -26,7 +26,7 @@ const createCard = (listing) => html`<li>
       <br>
       <div class="profile-buttons">
         <a href="/offers/${listing._id}/edit" class="profile-edit">Edit</a>
-        <a href="javascript:void(0)" @click=${onDelete} class="profile-delete">Delete</a>
+        <a href="javascript:void(0)" @click=${onDelete.bind(null,context)} class="profile-delete">Delete</a>
       </div>
     </div>
 
@@ -35,8 +35,9 @@ const createCard = (listing) => html`<li>
 
 let allResults;
 let currentPage = 1;
-
+let context;
 export async function showProfile(ctx, next) {
+  context = ctx;
   const profile = await getProfile();
   allResults = profile
   const resultsData = paginationParser(profile);

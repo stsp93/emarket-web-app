@@ -1,5 +1,5 @@
 import { getUser } from "../api/auth.js";
-import { deleteItemListing, getItemDetails } from "../api/data.js";
+import { getItemDetails } from "../api/data.js";
 import { html } from "../lib.js";
 import { onDelete } from "../utils/deleteListing.js";
 
@@ -21,7 +21,7 @@ const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a href="/
     <div class="details-buttons">
         ${item.isOwner ? 
             html`<a href="/offers/${item._id}/edit" class="details-edit">Edit</a>
-        <a @click=${onDelete} href="" class="details-delete">Delete</a>`:
+        <a @click=${onDelete.bind(null,context)} href="" class="details-delete">Delete</a>`:
     html`<a href="" class="details-contact">Contact</a>`}     
         <a href="/category/${item.category}" class="details-back">Back to ${item.category}</a>
     </div>
