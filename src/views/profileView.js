@@ -1,7 +1,7 @@
 import { getProfile } from "../api/data.js";
-import { RESULTS_PER_PAGE } from "../config/constants.js";
 import { html } from "../lib.js";
 import { onDelete } from "../utils/deleteListing.js";
+import { paginate,changePage,state } from "../utils/paginationUtil.js";
 
 const profileTemplate = (resultsData) => html`<h2 class="main-title">Your Listings</h2>
 ${resultsData.results.length ? html`<ul class="offers-list">
@@ -9,9 +9,9 @@ ${resultsData.results.map(createCard)}
 </ul>
 
 <div class="pagination">
-  <button @click=${changePage.bind(null,resultsData.page - 1)} class="pagination-arrow"><i class="fa-solid fa-chevron-left"></i></button>
+  <button @click=${changePage.bind(null,resultsData.page - 1,renderTemplate)} class="pagination-arrow"><i class="fa-solid fa-chevron-left"></i></button>
   <p class="page">${resultsData.page}/${resultsData.pages}</p>
-  <button  @click=${changePage.bind(null,resultsData.page + 1)} class="pagination-arrow"><i class="fa-solid fa-chevron-right"></i></button>
+  <button  @click=${changePage.bind(null,resultsData.page + 1, renderTemplate)} class="pagination-arrow"><i class="fa-solid fa-chevron-right"></i></button>
 </div>` : html`<p>No offers found...</p>`}
 `
 
@@ -33,28 +33,15 @@ const createCard = (listing) => html`<li>
   </article>
 </li>`
 
-let allResults;
-let currentPage = 1;
 let context;
 export async function showProfile(ctx, next) {
   context = ctx;
   const profile = await getProfile();
-  allResults = profile
-  const resultsData = paginationParser(profile);
-  ctx.render(profileTemplate(resultsData));
+  state.allResults = profile
+  const resultsData = paginate(profile, 1);
+  renderTemplate(resultsData);
 }
 
-
-// TODO Separate pagination logic in utils
-function paginationParser(allResults, page = currentPage) {
-  const results = allResults.slice((page - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE * page);
-  const pages = Math.ceil(allResults.length / RESULTS_PER_PAGE);
-  return { results, page, pages }
-}
-
-function changePage(page) {
-  const resultsData = paginationParser(allResults, page)
-  if(resultsData.page === 0 || resultsData.page > resultsData.pages) return;
-  currentPage = page;
-  context.render(resultsTemplate(resultsData, title));
+function renderTemplate(resultsData) {
+  context.render(profileTemplate(resultsData));
 }

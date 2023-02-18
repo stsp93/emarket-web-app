@@ -2,6 +2,7 @@ import { html } from "../lib.js";
 import { accrodionAnimation, clickPrev, clickNext } from "../controllers/accordionController.js";
 import { getAllCategories } from "../api/data.js";
 import { removeSkeleton } from "../utils/skeletonUtil.js";
+import { state } from "../utils/paginationUtil.js";
 
 const homeTemplate = (allCategories) => html`<h2 class="main-title">Categories</h2>
 <article class="accordion">
@@ -33,6 +34,9 @@ const accordionLink = (category, imgUrl) => html`<a class="accordion__link" href
 
 
 export async function showHome(ctx, next) {
+  //reset current page
+  state.currentPage = 1;
+
   // render homepage with all categories
   const allCategories = Object.entries(await getAllCategories());
   ctx.render(homeTemplate(allCategories));

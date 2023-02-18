@@ -40,7 +40,7 @@ export async function editListing(id, payload) {
 }
 
 export async function searchItems(query) {
-    const res = await api.get(endpoints.search(query.q = '', query.cat = ''));
+    const res = await api.get(endpoints.search(query.q || '', query.cat || ''));
     return res;
 }
 
