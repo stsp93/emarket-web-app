@@ -1,27 +1,22 @@
 import { RESULTS_PER_PAGE } from "../config/constants.js";
+import { getState, setState } from "../state.js";
 
 
-// State
 
-const state = {
-    allResults : [],
-    currentPage: 1,
-    title:'',
-    previousPage: '',
-}
 
 // Pagination logic
 
-function paginate(allResults, page = state.currentPage) {
-    const results = state.allResults.slice((page - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE * page);
-    const pages = Math.ceil(state.allResults.length / RESULTS_PER_PAGE);
+function paginate(page = getState('page') || 1) {
+    const results = getState('results').slice((page - 1) * RESULTS_PER_PAGE, RESULTS_PER_PAGE * page);
+    const pages = Math.ceil(getState('results').length / RESULTS_PER_PAGE);
+    console.log({ results, page, pages });
     return { results, page, pages }
   }
   
   function changePage(page, render) {
-    const resultsData = paginate(state.allResults, page)
+    const resultsData = paginate(page)
     if(resultsData.page === 0 || resultsData.page > resultsData.pages) return;
-    state.currentPage = page;
+    setState('page', page)
 
     return render(resultsData)
   }
@@ -29,4 +24,4 @@ function paginate(allResults, page = state.currentPage) {
  
 
 
-  export {paginate,changePage,state }
+  export {paginate,changePage }

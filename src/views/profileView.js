@@ -1,7 +1,8 @@
 import { getProfile } from "../api/data.js";
 import { html } from "../lib.js";
+import { setState } from "../state.js";
 import { onDelete } from "../utils/deleteListing.js";
-import { paginate,changePage,state } from "../utils/paginationUtil.js";
+import { paginate,changePage } from "../utils/paginationUtil.js";
 
 const profileTemplate = (resultsData) => html`<h2 class="main-title">Your Listings</h2>
 ${resultsData.results.length ? html`<ul class="offers-list">
@@ -37,7 +38,7 @@ let context;
 export async function showProfile(ctx, next) {
   context = ctx;
   const profile = await getProfile();
-  state.allResults = profile
+  setState('results', profile)
   const resultsData = paginate(profile, 1);
   renderTemplate(resultsData);
 }

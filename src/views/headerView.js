@@ -1,6 +1,6 @@
 import { render, html } from '../lib.js'
 import { getUser } from "../api/auth.js";
-import { state } from '../utils/paginationUtil.js';
+import { setState } from '../state.js';
 
 const createHeader = (user) => html`<div class="logo">
   <a href="/"><img src="/static/images/logo.png" alt="Shop open e-market" /></a>
@@ -50,7 +50,7 @@ function onSearch(e) {
   e.preventDefault()
   const form = new FormData(e.target);
   const query = Object.fromEntries(form).query;
-  state.currentPage = 1;
+  setState('page', 1)
   context.page.redirect(`/search?q=${query}`);
 
 }

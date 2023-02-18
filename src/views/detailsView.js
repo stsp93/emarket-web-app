@@ -1,10 +1,10 @@
 import { getUser } from "../api/auth.js";
 import { getItemDetails } from "../api/data.js";
 import { html } from "../lib.js";
+import { getState, setState } from "../state.js";
 import { onDelete } from "../utils/deleteListing.js";
-import { state } from "../utils/paginationUtil.js";
 
-const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a href="/category/${item.category}">${item.category}</a></h2>
+const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a @click=${setState.bind(null,'page', 1)} href="/category/${item.category}">${item.category}</a></h2>
 
 <article class="detials">
     <img src="${item.imageUrl}" alt="${item.title}" class="main-image">
@@ -25,14 +25,13 @@ const detailsTemplate = (item) => html`<h2 class="main-title">&rAarr; <a href="/
             html`<a href="/offers/${item._id}/edit" class="details-edit">Edit</a>
         <a @click=${onDelete.bind(null,context)} href="" class="details-delete">Delete</a>`:
     html`<a href="" class="details-contact">Contact</a>`}     
-        <a  href="${state.previousPage}" class="details-back">Back </a>
+        <a  href="${getState('prev')}" class="details-back">Back </a>
     </div>
 
 </article>`
 
 let context;
 export async function showDetails(ctx, next) {
-    console.log(state.previousPage);
     context = ctx;
     const itemDetails = await getItemDetails(ctx.params.id);
     itemDetails.isOwner = getUser()?.username === itemDetails.owner;

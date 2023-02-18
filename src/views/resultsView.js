@@ -1,6 +1,7 @@
 import { getCategoryResults, searchItems } from "../api/data.js";
 import { html } from "../lib.js";
-import { changePage, paginate, state } from "../utils/paginationUtil.js";
+import { getState, setState } from "../state.js";
+import { changePage, paginate } from "../utils/paginationUtil.js";
 
 const resultsTemplate = (resultsData , title) => html`<h2 class="main-title">${title}</h2>
 
@@ -37,10 +38,12 @@ let context;
 export async function showResults(ctx, next) {
   context = ctx;
   const query = ctx.query
-  state.allResults = await searchItems(query);
-  state.title = `${state.allResults.length} result${state.allResults.length === 1 ? '' : 's'} found`;
+  const allResults = await searchItems(query);
+  setState('results', allResults)
+  const title = `${getState('results').length} result${getState('results').length === 1 ? '' : 's'} found`;
+  setState('title', title) 
 
-  const resultsData = paginate(state.allResults);
+  const resultsData = paginate(getState('page'));
 
   renderTemplate(resultsData);
   if (query) document.getElementsByClassName('search-box').value = query
@@ -49,10 +52,11 @@ export async function showResults(ctx, next) {
 export async function showCategory(ctx, next) {
     context = ctx;
   const category = ctx.params.category
-  state.title = category;
+  setState('title', category)
   try {
-    state.allResults = await getCategoryResults(category);
-    const resultsData = paginate(state.allResults);
+    const allResults = await getCategoryResults(category);
+    setState('results', allResults)
+    const resultsData = paginate(getState('page'));
     renderTemplate(resultsData, category);
   } catch (error) {
     console.log(error);
@@ -62,7 +66,7 @@ export async function showCategory(ctx, next) {
 }
 
 function renderTemplate(resultsData) {
-  state.previousPage = window.location.href.slice(21)
+  setState('prev', window.location.href.slice(21))
 
-  context.render(resultsTemplate(resultsData, state.title));
+  context.render(resultsTemplate(resultsData, getState('title')));
 }
